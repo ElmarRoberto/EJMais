@@ -1,0 +1,51 @@
+{% load static %}
+
+<div class="sidebar" data-color="black" data-image="{% static "general/images/sidebar-image.jpg" %}">
+
+    <div class="sidebar-wrapper">
+        <div class="logo">
+            <a href="{% url 'dashboard' %}" class="simple-text">
+              <img src="{% static "logo/logo.png" %}" width="140px" height="75px" align="center" ></img>
+            </a>
+        </div>
+
+        <ul class="nav">
+            <li class="{% if 'dashboard' in request.path %}active{% endif %}">
+                <a href="{% url 'dashboard' %}">
+                    <i class="pe-7s-home"></i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li class="{% if 'theories' in request.path or 'theory' in request.path %}active{% endif %}">
+                <a href="{% url 'theories' %}">
+                    <i class="pe-7s-world"></i>
+                    <p>Conteúdos</p>
+                </a>
+            </li>
+            <li class="{% if 'exercises' in request.path or 'exercise' in request.path %}active{% endif %}">
+                <a href="{% url 'list_exercises_not_deprecated' %}">
+                    <i class="pe-7s-gym"></i>
+                    <p>Exercícios</p>
+                </a>
+            </li>
+            <li class="{% if 'topics' in request.path or 'topic' in request.path %}active{% endif %}">
+                <a href="{% url 'list_all_topics' %}">
+                    <i class="pe-7s-news-paper"></i>
+                    <p>Fórum</p>
+                </a>
+            </li>
+            <li class="{% if 'ranking' in request.path %}active{% endif %}">
+                <a href="{% url 'show_ranking' %}">
+                    <i class="pe-7s-cup"></i>
+                    <p>Ranking</p>
+                </a>
+            </li>
+            <li class="active-about">
+                    <a href="{% url 'about' %}">
+                        <i class="pe-7s-info"></i>
+                        <p>Sobre</p>
+                    </a>
+            </li>
+        </ul>
+    </div>
+</div>
