@@ -1,17 +1,17 @@
 /*!
-    
+
  =========================================================
  * Light Bootstrap Dashboard - v1.3.1.0
  =========================================================
- 
+
  * Product Page: http://www.creative-tim.com/product/light-bootstrap-dashboard
  * Copyright 2017 Creative Tim (http://www.creative-tim.com)
  * Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard/blob/master/LICENSE.md)
- 
+
  =========================================================
- 
+
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- 
+
  */
 
 /*      light colors         */
@@ -66,7 +66,7 @@ td,
 button.close {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-family: "Roboto","Helvetica Neue",Arial,sans-serif;
+  font-family: 'Press Start 2P', cursive;
   font-weight: 400;
 }
 
@@ -245,6 +245,7 @@ input:focus {
   overflow: hidden;
   width: 260px;
   z-index: 4;
+  background-color: #380B61;
 }
 .sidebar .sidebar-background {
   position: absolute;
@@ -267,7 +268,7 @@ input:focus {
   margin: 10px 10px;
   color: #FFFFFF;
   line-height: 20px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Press Start 2P', cursive;
 }
 .sidebar .logo .simple-text {
   text-transform: uppercase;
@@ -338,7 +339,7 @@ body > .navbar-collapse .logo p {
   margin: 10px 10px;
   color: #FFFFFF;
   line-height: 20px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Press Start 2P', cursive;
 }
 .sidebar .logo .simple-text,
 body > .navbar-collapse .logo .simple-text {
