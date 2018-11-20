@@ -1,12 +1,10 @@
 # ACHIEVEMENT TYPE FIELD.
-ACHIEVEMENT_TYPE = ((1, 'Exercício Correto'),
-                    (2, 'Resposta no Fórum'),
-                    (3, 'Pontuação do Usuário'),
-                    (4, 'Submissão de Exercícios'))
-CORRECT_EXERCISE_ACHIEVEMENTS = 1
-SUBMITED_ANSWERS_ACHIEVEMENTS = 2
-SCORE_ACHIEVEMENTS = 3
-SUBMITED_EXERCISE_ACHIEVEMENTS = 4
+ACHIEVEMENT_TYPE = ((1, 'Atividade Completa'),
+                    (2, 'Parabenização de Atividade Completa'),
+                    (3, 'Parabenização por um Trabalho Novo'),
+ACTIVITY_COMPLETED_ACHIEVEMENTS = 1
+CONGRATS_COMPLETED_ACT_ACHIEVEMENTS = 2
+CONGRATS_NEW_JOB_ACHIEVEMENTS = 3
 
 
 # NAME FIELD.
@@ -16,4 +14,10 @@ MAX_LENGTH_NAME = 35
 MAX_LENGTH_DESCRIPTION = 100
 
 # DEFAULT VALUE FOR ACHIEVEMENT ICON FIELD.
-ACHIEVEMENTE_IMAGE = "Trophy-96.png"
+COIN_ACHIEVEMENTE_IMAGE = "coin.png"
+HEART_ACHIEVEMENTE_IMAGE = "heart.png"
+TROPHY_ACHIEVEMENTE_IMAGE = "trophy.png"
+DIAMOND_ACHIEVEMENTE_IMAGE = "diamond.png"
+CROW_ACHIEVEMENTE_IMAGE = "crow.png"
+MONEY_ACHIEVEMENTE_IMAGE = "money.png"
+GOOD_JOB_ACHIEVEMENTE_IMAGE = "good-job.png"
