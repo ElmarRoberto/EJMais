@@ -10,7 +10,7 @@ body {
 }
 
 #description {
-  color: black;
+  color: white;
 }
 
 .form-control {
@@ -30,7 +30,7 @@ body {
 
 .jumbotron {
     border-radius: 0;
-    background-image: url('images/city.jpg');
+    background-image: url('images/img3.png');
     background-size: cover;
 }
 
