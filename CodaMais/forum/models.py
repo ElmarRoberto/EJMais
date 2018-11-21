@@ -18,14 +18,18 @@ from user.models import User
 # The class represents a topic in the site forum.
 class Topic(models.Model):
     title = models.CharField(max_length=constants.MAX_LENGTH_TITLE)
-    subtitle = models.CharField(max_length=constants.MAX_LENGTH_SUBTITLE)
+    subtitle = models.CharField(max_length=constants.MAX_LENGTH_SUBTITLE, null=True, blank=True)
     author = models.ForeignKey(
           User,
           on_delete=models.CASCADE,)
     description = models.CharField(max_length=constants.MAX_LENGTH_TOPIC_DESCRIPTION)
     date_topic = models.DateTimeField(auto_now_add=True, blank=True)
+    planned_date = models.DateTimeField(null=True)
+    delivery_date= models.DateTimeField(null=True, blank=True)
     best_answer = models.ForeignKey('Answer', models.SET_NULL, related_name='best_answer', null=True)
     locked = models.BooleanField(default=False)
+    complexity = models.CharField(max_length=255, choices=constants.COMPLEXITIES)
+    completed = models.BooleanField(default=False)
 
     def new_topics():
         topics = Topic.objects.all().order_by('-id')[:5]

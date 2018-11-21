@@ -9,8 +9,7 @@ MIN_LENGTH_SUBTITLE = 5
 SUBTITLE_SIZE = 'Subtitle must be between 5 and 200 characters'
 
 # AUTHOR FIELD.
-MAX_LENGTH_AUTHOR = 12
-
+MAX_LENGTH_AUTHOR = 12 
 # TOPIC DESCRIPTION FIELD.
 MAX_LENGTH_TOPIC_DESCRIPTION = 100000000
 MIN_LENGTH_TOPIC_DESCRIPTION = 10
@@ -32,3 +31,11 @@ ANSWER_DESCRIPTION_NAME = 'description'
 
 # DEFAULT LOGGER
 DEFAULT_LOGGER = 'default'
+
+# TOPIC COMPLEXITIES
+COMPLEXITIES = (
+        ("EASY", 'Simples'),
+        ("MEDIUM", 'Médio'),
+        ("HARD", 'Difícil'),
+        ("BRUTAL", 'Brutal')
+)

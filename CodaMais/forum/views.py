@@ -158,7 +158,9 @@ def create_topic(request):
     user = request.user  # Automaticlly get username that is logged.
     logger.info("user: " + user.username)
 
+    print('before')
     if form.is_valid():
+        print('after')
 
         logger.info("Create topic form was valid.")
 
@@ -171,6 +173,8 @@ def create_topic(request):
 
     else:
         # Create topic form was invalid.
+        print('what')
+        print(form.errors)
         pass
 
         return render(request, 'new_topic.html', {'form': form})  # Re-using data if something has been speeled wrong.
