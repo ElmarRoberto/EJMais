@@ -18,7 +18,7 @@ class TopicForm(forms.ModelForm):
 
     description = forms.CharField(widget=forms.Textarea)
     
-    planned_date = forms.DateTimeField(input_formats=['%Y-%m-%d %H:%M:%S'])
+    planned_date = forms.DateTimeField(input_formats=['%Y-%m-%dT%H:%M'])
 
     class Meta:
         model = Topic

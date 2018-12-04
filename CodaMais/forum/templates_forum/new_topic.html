@@ -23,7 +23,7 @@
                 <div class="alert alert-danger"role="alert">{{error}}</div>
                 {% endfor %}
                 <label for="{{ form.planned_date.id_for_label }}">Data de Entrega:</label>
-                {{ form.planned_date }}
+                <input type="datetime-local" name="planned_date" id="id_planned_date" required/>
             </div>
 
 
