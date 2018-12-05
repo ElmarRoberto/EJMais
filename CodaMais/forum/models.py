@@ -47,6 +47,12 @@ class Topic(models.Model):
         planned_date = datetime.strptime(self.planned_date, '%Y-%m-%dT%H:%M')
         return planned_date < self.delivery_date
 
+    @property
+    def display_planned_date(self):
+        planned_date = datetime.strptime(self.planned_date, '%Y-%m-%dT%H:%M')
+        return planned_date
+
+
     def __str__(self):
         return self.title
 

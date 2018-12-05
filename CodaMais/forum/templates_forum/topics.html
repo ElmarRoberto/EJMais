@@ -27,7 +27,7 @@
                           {% if topic.author.username == user.username %}
                             <tr data-href="{% url 'show_topic' topic.id %}">
                               <td><a class="text-primary" href="{% url 'show_topic' topic.id %}">{{topic.title}}</a></td>
-                              <td>{{topic.planned_date}}</td>
+                              <td>{{topic.display_planned_date}}</td>
                               {%if topic.locked%}
                                 <td>{{topic.delivery_date}}</td>
                               {%else%}
@@ -89,7 +89,7 @@
                           {% if topic.author.username != user.username %}
                             <tr data-href="{% url 'show_topic' topic.id %}">
                               <td><a class="text-primary" href="{% url 'show_topic' topic.id %}">{{topic.title}}</a></td>
-                              <td>{{topic.planned_date}}</td>
+                              <td>{{topic.display_planned_date}}</td>
                               {%if topic.locked %}
                                 <td>{{topic.delivery_date}}</td>
                               {%else%}
