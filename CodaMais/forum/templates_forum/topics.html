@@ -42,14 +42,14 @@
                                  {%endif%}
                               </td>
                               <td>
-                                {% if user.username == topic.author.username %}
+                                {% if user.username == topic.author.username and not topic.locked %}
                                   <a href="{% url 'edit_topic' topic.id  %}">
                                     <i class="fa fa-pencil fa-2x text-warning"></i>
                                   </a>
                                 {% endif %}
                               </td>
                               <td>
-                                {% if user.username == topic.author.username %}
+                                {% if user.username == topic.author.username and not topic.locked %}
                                   <a href="javascript:void(0)" data-target="#delete_confirmation_topic" data-toggle="modal" data-id={{topic.id}} onclick="setid({{topic.id}})">
                                     <i class="fa fa-trash fa-2x text-danger"></i>
                                   </a>

@@ -309,6 +309,28 @@ def __show_delete_answer_button__(answers, topic, current_user_username):
 
     return deletable_answers
 
+def calculate_score(topic):
+    complexity = topic.complexity
+
+    if complexity == 'EASY':
+        multiplier = constants.EASY_SCORE_MULTIPLIER
+    elif complexity == 'MEDIUM':
+        multiplier = constants.MEDIUM_SCORE_MULTIPLIER
+    elif complexity == 'HARD':
+        multiplier = constants.HARD_SCORE_MULTIPLIER
+    elif complexity == 'BRUTAL':
+        multiplier = constants.BRUTAL_SCORE_MULTIPLIER
+
+    score = constants.BASE_SCORE * multiplier
+
+    if topic.is_delayed:
+        score -= constants.DELAY_PENALTY
+
+    if score < 0:
+        score = 1
+
+    return score
+    
 
 @login_required(login_url='/')
 def lock_topic(request, id):
@@ -328,6 +350,9 @@ def lock_topic(request, id):
         topic.delivery_date = datetime.now()
         topic.locked = True
         topic.save()
+        user = topic.author
+        user.score += calculate_score(topic)
+        user.save()
 
         return redirect('list_all_topics')
     else:

@@ -8,6 +8,7 @@
 
 # Django.
 from django.db import models
+from datetime import datetime
 
 # local Django.
 from forum import constants
@@ -40,6 +41,11 @@ class Topic(models.Model):
         # Getting all current topic answers except the best answer
         answers = Answer.objects.filter(topic=self)
         return answers
+
+    @property
+    def is_delayed(self):
+        planned_date = datetime.strptime(self.planned_date, '%Y-%m-%dT%H:%M')
+        return planned_date < self.delivery_date
 
     def __str__(self):
         return self.title
