@@ -24,37 +24,101 @@
                     </thead>
                     <tbody>
                         {% for topic in list_topics %}
-                          <tr data-href="{% url 'show_topic' topic.id %}">
-                            <td><a class="text-primary" href="{% url 'show_topic' topic.id %}">{{topic.title}}</a></td>
-                            <td>{{topic.planned_date}}</td>
-                            {%if topic.delivery_date %}
-                              <td>{{topic.delivery_date}}</td>
-                            {%else%}
-                            <td>D:</td>
-                            {%endif%}
-                            <td>{{topic.get_complexity_display}}</td>
-                            <td>
-                               {% if topic.completed %}
-                                 <i class="fa fa-check fa-2x text-success"></i>
-                               {%else%}
-                                 Em andamento
-                               {%endif%}
-                            </td>
-                            <td>
-                              {% if user.username == topic.author.username %}
-                                <a href="{% url 'edit_topic' topic.id  %}">
-                                  <i class="fa fa-pencil fa-2x text-warning"></i>
-                                </a>
-                              {% endif %}
-                            </td>
-                            <td>
-                              {% if user.username == topic.author.username %}
-                                <a href="javascript:void(0)" data-target="#delete_confirmation_topic" data-toggle="modal" data-id={{topic.id}} onclick="setid({{topic.id}})">
-                                  <i class="fa fa-trash fa-2x text-danger"></i>
-                                </a>
-                              {% endif %}
-                            </td>
-                        </tr>
+                          {% if topic.author.username == user.username %}
+                            <tr data-href="{% url 'show_topic' topic.id %}">
+                              <td><a class="text-primary" href="{% url 'show_topic' topic.id %}">{{topic.title}}</a></td>
+                              <td>{{topic.planned_date}}</td>
+                              {%if topic.delivery_date %}
+                                <td>{{topic.delivery_date}}</td>
+                              {%else%}
+                              <td>--</td>
+                              {%endif%}
+                              <td>{{topic.get_complexity_display}}</td>
+                              <td>
+                                 {% if topic.completed %}
+                                   <i class="fa fa-check fa-2x text-success"></i>
+                                 {%else%}
+                                   Em andamento
+                                 {%endif%}
+                              </td>
+                              <td>
+                                {% if user.username == topic.author.username %}
+                                  <a href="{% url 'edit_topic' topic.id  %}">
+                                    <i class="fa fa-pencil fa-2x text-warning"></i>
+                                  </a>
+                                {% endif %}
+                              </td>
+                              <td>
+                                {% if user.username == topic.author.username %}
+                                  <a href="javascript:void(0)" data-target="#delete_confirmation_topic" data-toggle="modal" data-id={{topic.id}} onclick="setid({{topic.id}})">
+                                    <i class="fa fa-trash fa-2x text-danger"></i>
+                                  </a>
+                                {% endif %}
+                              </td>
+                            </tr>
+                          {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Todas as Outras Tarefas</h4>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table id="other-tasks-table" class="table table-striped">
+                    <thead>
+                        <th>Título</th>
+                        <th>Entrega Planejada</th>
+                        <th>Entrega Realizada</th>
+                        <th>Complexidade</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {% for topic in list_topics %}
+                          {% if topic.author.username != user.username %}
+                            <tr data-href="{% url 'show_topic' topic.id %}">
+                              <td><a class="text-primary" href="{% url 'show_topic' topic.id %}">{{topic.title}}</a></td>
+                              <td>{{topic.planned_date}}</td>
+                              {%if topic.delivery_date %}
+                                <td>{{topic.delivery_date}}</td>
+                              {%else%}
+                              <td>--</td>
+                              {%endif%}
+                              <td>{{topic.get_complexity_display}}</td>
+                              <td>
+                                 {% if topic.completed %}
+                                   <i class="fa fa-check fa-2x text-success"></i>
+                                 {%else%}
+                                   Em andamento
+                                 {%endif%}
+                              </td>
+                              <td>
+                                {% if user.username == topic.author.username %}
+                                  <a href="{% url 'edit_topic' topic.id  %}">
+                                    <i class="fa fa-pencil fa-2x text-warning"></i>
+                                  </a>
+                                {% endif %}
+                              </td>
+                              <td>
+                                {% if user.username == topic.author.username %}
+                                  <a href="javascript:void(0)" data-target="#delete_confirmation_topic" data-toggle="modal" data-id={{topic.id}} onclick="setid({{topic.id}})">
+                                    <i class="fa fa-trash fa-2x text-danger"></i>
+                                  </a>
+                                {% endif %}
+                              </td>
+                            </tr>
+                          {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>

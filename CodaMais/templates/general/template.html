@@ -8,6 +8,9 @@
     #my-tasks-table_wrapper {
       padding: 10px
     }
+    #other-tasks-table_wrapper {
+      padding: 10px
+    }
   </style>
 </head>
 
@@ -58,6 +61,7 @@
     $(document).ready(function(){
         console.log($("#my-tasks-table"))
         $("#my-tasks-table").DataTable();
+        $("#other-tasks-table").DataTable();
 
         $(".clickable-row").click(function() {
             window.location = $(this).data("href");
