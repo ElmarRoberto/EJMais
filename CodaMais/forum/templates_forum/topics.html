@@ -45,7 +45,7 @@
                               </a>
                             </td>
                             <td>
-                              <a href="javascript:void(0)" data-target="#delete_confirmation_topic" data-toggle="modal">
+                              <a href="javascript:void(0)" data-target="#delete_confirmation_topic" data-toggle="modal" data-id={{topic.id}} onclick="setid({{topic.id}})">
                                 <i class="fa fa-trash fa-2x text-danger"></i>
                               </a>
                             </td>
@@ -64,6 +64,17 @@
 
 {% block modal %}
   <div class="modal fade" id="delete_confirmation_topic">
+      <script>
+        var topicId = null;
+        function setid(id) {
+          topicId = id;
+        }
+        function getId() {
+          var a = document.getElementById('delete-link');
+          var href = a.href.replace('/0/', '/' + topicId + '/');
+          a.href = href;
+        }
+      </script>
     <div class="modal-dialog modal-sm" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -75,7 +86,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <a href="#" class="btn btn-danger">Deletar</a>
+          <a id="delete-link" href="{% url 'delete_topic' 0 %}" onclick="getId()" class="btn btn-danter">Deletar</a>
         </div>
       </div>
     </div>
