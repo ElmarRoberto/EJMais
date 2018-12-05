@@ -18,34 +18,34 @@
   {% if lockable_topic is True %}
 
   <div class="header" id=header style="text-align:right;">
-    <a class="btn btn-outline-success" data-toggle="modal" data-target="#lock-topic" href="javascript:void(0)">Trancar Tópico</a>
+    <a class="btn btn-outline-success" data-toggle="modal" data-target="#lock-topic" href="javascript:void(0)">Finalizar Tarefa</a>
   </div>
   <br> {% endif %}
 
   <div class="card">
     <div class="header">
       <h4 class="title">{{topic.title}}</h4>
-      <h5 class="title sub">{{topic.subtitle}}</h5>
     </div>
     <div class="content table-responsive table-full-width">
 
       <table class="table table-striped">
         <tr>
-          <td id=c olumn>
-            <img src="{{topic.author.user_image.url}}" width="100px" height="100px"></img>
+          <td id=c olumn colspan=2>
+            {{topic.description|safe}}
           </td>
           <td id=c olumn2>
-            {{topic.description|safe}}
           </td>
         </tr>
         <tr>
           <td id=c olumn>
-            <b>
-            {{topic.author.username}}
-          </b>
+            Designado a <b>{{topic.author.username}}</b>
+            <br />
+            <img src="{{topic.author.user_image.url}}" width="50px" height="50px"></img>
           </td>
           <td id=c olumn2 style="text-align:right;">
-            {{topic.date_topic}}
+            Data de criação: <b>{{topic.date_topic}}</b>
+            <br />
+            Data de entrega: <b>{{topic.planned_date}}</b>
           </td>
         </tr>
       </table>
@@ -88,7 +88,7 @@
 
   <div class="card">
     <div class="header" id=header>
-      <h4 class="title">{{quantity_answer}} Respostas</h4><br>
+      <h4 class="title">{{quantity_answer}} Comentários</h4><br>
     </div>
     {% for answer, delete_answer in zipped_data %} {% if answer.id is not best_answer.id %}
     <div class="card">
@@ -116,8 +116,8 @@
           <tr>
             <td colspan="2">
               {% if choose_best_answer %}
-              <a class="btn btn-success btn-sm btn-fill" data-toggle="modal" data-target="#choose_best_answer" data-id="{{answer.id}}" data-url="{% url 'best_answer' answer.id %}">Melhor Resposta </a> {% endif %} {% if delete_answer == True %}
-              <a class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#delete_confirmation_answer" data-id="{{answer.id}}" data-url="{% url 'delete_answer' answer.id %}">Deletar Resposta </a> {% endif %}
+              <a class="btn btn-success btn-sm btn-fill" data-toggle="modal" data-target="#choose_best_answer" data-id="{{answer.id}}" data-url="{% url 'best_answer' answer.id %}">Melhor Comentário</a> {% endif %} {% if delete_answer == True %}
+              <a class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#delete_confirmation_answer" data-id="{{answer.id}}" data-url="{% url 'delete_answer' answer.id %}">Deletar Comentário</a> {% endif %}
             </td>
           </tr>
 
@@ -132,7 +132,7 @@
 
   <div class="card">
     <div class="header">
-      <h3 class="title"> Answer </h3><br>
+      <h3 class="title">Comentário</h3><br>
       <div class="content">
 
         <form method="post" action=".">
@@ -142,7 +142,7 @@
             <div class="alert alert-danger" role="alert">{{error}}</div>
             {% endfor %} {{ form.description }}
           </div>
-          <input formnovalidate class="btn btn-fill btn-default" type="submit" value="Answer" />
+          <input formnovalidate class="btn btn-fill btn-default" type="submit" value="Comentar" />
         </form>
       </div>
     </div>
@@ -155,7 +155,8 @@
 
 
   {% if deletable_topic %}
-    <a class="btn btn-outline-success" data-toggle="modal" data-target="#delete_confirmation_topic" href="javascript:void(0)">Deletar Tópico</a>
+  <a class="btn btn-outline-success" style="margin-right: 15px" data-toggle="modal" data-target="#delete_confirmation_topic" href="javascript:void(0)">Deletar Tarefa</a>
+    <a class="btn btn-outline-success mr-3" href="{% url 'edit_topic' topic.id %}">Deletar Tarefa</a>
   {% endif %}
 
   <script>
@@ -171,7 +172,7 @@
           <h4 class="modal-title" id="myModalLabel">Confirmar Deleção</h4>
         </div>
         <div class="modal-body">
-          Você deseja realmente apagar seu tópico? Essa ação é irreversível.
+          Você deseja realmente apagar sua tarefa? Essa ação é irreversível.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -188,10 +189,10 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-          <h4 class="modal-title" id="myModalLabel">Melhor Resposta</h4>
+          <h4 class="modal-title" id="myModalLabel">Melhor Comentário</h4>
         </div>
         <div class="modal-body">
-          Você deseja escolher esta como a melhor resposta?
+          Você deseja escolher este como a melhor comentário?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
@@ -210,7 +211,7 @@
           <h4 class="modal-title" id="myModalLabel">Confirmar Ação</h4>
         </div>
         <div class="modal-body">
-          Você deseja realmente apagar sua resposta? Essa ação é irreversível.
+          Você deseja realmente apagar seu comentário? Essa ação é irreversível.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
@@ -225,10 +226,10 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Confirmar Trancamento?</h4>
+          <h4 class="modal-title" id="myModalLabel">Finalizar tarefa?</h4>
         </div>
         <div class="modal-body">
-          Você deseja realmente trancar seu tópico? Essa ação é irreversível.
+          Você deseja realmente finalizar sua tarefa? Essa ação é irreversível.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
