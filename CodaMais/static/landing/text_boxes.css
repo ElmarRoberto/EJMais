@@ -1,5 +1,6 @@
 /* Text Boxes Addition Template */
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 
 .recovery-password {
   width: 360px;
@@ -32,7 +33,7 @@
 }
 
 .form input {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Press Start 2P', cursive;
   outline: 0;
   background: #FFFFFF;
   width: 100%;
@@ -50,7 +51,7 @@
 }
 
 .form button {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Press Start 2P', cursive;
   text-transform: uppercase;
   outline: 0;
   background: #FFFFFF;
@@ -128,7 +129,7 @@
 
 body {
   background: #FFFFFF; /* fallback for old browsers */
-  font-family: "Roboto", sans-serif;
+  font-family: 'Press Start 2P', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
