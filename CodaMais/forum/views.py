@@ -8,6 +8,7 @@
 '''
 # standard
 import logging
+from datetime import datetime
 
 # Django.
 from django.shortcuts import render, redirect
@@ -177,6 +178,21 @@ def create_topic(request):
 
 
 @login_required(login_url='/')
+def edit_topic(request, pk=None):
+    topic = Topic.objects.filter(pk=pk)
+    form = TopicForm(topic.values()[0])
+
+    if request.method == 'POST':
+        form = TopicForm(request.POST)
+
+        if form.is_valid():
+            topic.update(**form.cleaned_data)
+
+    return render(request, 'edit_topic.html', {'form': form})
+
+
+
+@login_required(login_url='/')
 def delete_topic(request, id):
     try:
         topic = Topic.objects.get(id=id)  # Topic object, from Topic model.
@@ -293,6 +309,28 @@ def __show_delete_answer_button__(answers, topic, current_user_username):
 
     return deletable_answers
 
+def calculate_score(topic):
+    complexity = topic.complexity
+
+    if complexity == 'EASY':
+        multiplier = constants.EASY_SCORE_MULTIPLIER
+    elif complexity == 'MEDIUM':
+        multiplier = constants.MEDIUM_SCORE_MULTIPLIER
+    elif complexity == 'HARD':
+        multiplier = constants.HARD_SCORE_MULTIPLIER
+    elif complexity == 'BRUTAL':
+        multiplier = constants.BRUTAL_SCORE_MULTIPLIER
+
+    score = constants.BASE_SCORE * multiplier
+
+    if topic.is_delayed:
+        score -= constants.DELAY_PENALTY
+
+    if score < 0:
+        score = 1
+
+    return score
+    
 
 @login_required(login_url='/')
 def lock_topic(request, id):
@@ -309,8 +347,12 @@ def lock_topic(request, id):
 
     if user.username == topic.author.username or user.is_staff is True:
         logger.debug("Locking topic.")
+        topic.delivery_date = datetime.now()
         topic.locked = True
         topic.save()
+        user = topic.author
+        user.score += calculate_score(topic)
+        user.save()
 
         return redirect('list_all_topics')
     else:

@@ -20,7 +20,6 @@ from django.db.models import EmailField
 from django.core import validators
 from django.apps import apps
 
-
 # Local Django.
 from . import constants
 from .managers import UserManager
@@ -151,6 +150,17 @@ class User(AbstractBaseUser, PermissionsMixin):
         percentage_correct_exercises = round(percentage_correct_exercises, 2)
 
         return percentage_correct_exercises
+
+    def get_tasks_quantity(self):
+        return self.topic_set.all().count()
+
+    def get_finished_tasks_quantity(self):
+        return self.topic_set.all().filter(locked=True).count()
+
+    @property
+    def get_finished_tasks_percent(self):
+        percent = (self.get_finished_tasks_quantity() / self.get_tasks_quantity()) * 100
+        return round(percent, 2)
 
 
 # This class is used to set a relation between the user that required the register and the activation key.

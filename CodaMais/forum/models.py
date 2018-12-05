@@ -8,6 +8,7 @@
 
 # Django.
 from django.db import models
+from datetime import datetime
 
 # local Django.
 from forum import constants
@@ -18,14 +19,18 @@ from user.models import User
 # The class represents a topic in the site forum.
 class Topic(models.Model):
     title = models.CharField(max_length=constants.MAX_LENGTH_TITLE)
-    subtitle = models.CharField(max_length=constants.MAX_LENGTH_SUBTITLE)
+    subtitle = models.CharField(max_length=constants.MAX_LENGTH_SUBTITLE, null=True, blank=True)
     author = models.ForeignKey(
           User,
           on_delete=models.CASCADE,)
     description = models.CharField(max_length=constants.MAX_LENGTH_TOPIC_DESCRIPTION)
     date_topic = models.DateTimeField(auto_now_add=True, blank=True)
+    planned_date = models.CharField(max_length=255,null=True)
+    delivery_date = models.DateTimeField(null=True, blank=True)
     best_answer = models.ForeignKey('Answer', models.SET_NULL, related_name='best_answer', null=True)
     locked = models.BooleanField(default=False)
+    complexity = models.CharField(max_length=255, choices=constants.COMPLEXITIES)
+    completed = models.BooleanField(default=False)
 
     def new_topics():
         topics = Topic.objects.all().order_by('-id')[:5]
@@ -36,6 +41,17 @@ class Topic(models.Model):
         # Getting all current topic answers except the best answer
         answers = Answer.objects.filter(topic=self)
         return answers
+
+    @property
+    def is_delayed(self):
+        planned_date = datetime.strptime(self.planned_date, '%Y-%m-%dT%H:%M')
+        return planned_date < self.delivery_date
+
+    @property
+    def display_planned_date(self):
+        planned_date = datetime.strptime(self.planned_date, '%Y-%m-%dT%H:%M')
+        return planned_date
+
 
     def __str__(self):
         return self.title
