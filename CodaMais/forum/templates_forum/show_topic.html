@@ -46,6 +46,10 @@
             Data de criação: <b>{{topic.date_topic}}</b>
             <br />
             Data de entrega: <b>{{topic.planned_date}}</b>
+            <br />
+            {% if topic.locked %}
+              Data de finalização: <b>{{topic.delivery_date}}</b>
+            {% endif %}
           </td>
         </tr>
       </table>
@@ -151,12 +155,12 @@
   {% else %}
 
 
-  <h2><center><span class="label label-danger">O tópico está trancado.</span></center></h2> {% endif %}
+  <h2><center><span class="label label-danger">A tarefa foi finalizada.</span></center></h2> {% endif %}
 
 
-  {% if deletable_topic %}
-  <a class="btn btn-outline-success" style="margin-right: 15px" data-toggle="modal" data-target="#delete_confirmation_topic" href="javascript:void(0)">Deletar Tarefa</a>
-    <a class="btn btn-outline-success mr-3" href="{% url 'edit_topic' topic.id %}">Deletar Tarefa</a>
+  {% if deletable_topic and not topic.locked %}
+    <a class="btn btn-outline-success" style="margin-right: 15px" data-toggle="modal" data-target="#delete_confirmation_topic" href="javascript:void(0)">Deletar Tarefa</a>
+    <a class="btn btn-outline-success mr-3" href="{% url 'edit_topic' topic.id %}">Editar Tarefa</a>
   {% endif %}
 
   <script>
@@ -233,7 +237,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <a href="{% url 'lock_topic' topic.id %}" class="btn btn-primary">Trancar</a>
+          <a href="{% url 'lock_topic' topic.id %}" class="btn btn-primary">Finalizar</a>
         </div>
       </div>
     </div>

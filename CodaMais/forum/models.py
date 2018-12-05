@@ -25,7 +25,7 @@ class Topic(models.Model):
     description = models.CharField(max_length=constants.MAX_LENGTH_TOPIC_DESCRIPTION)
     date_topic = models.DateTimeField(auto_now_add=True, blank=True)
     planned_date = models.CharField(max_length=255,null=True)
-    delivery_date= models.DateTimeField(null=True, blank=True)
+    delivery_date = models.DateTimeField(null=True, blank=True)
     best_answer = models.ForeignKey('Answer', models.SET_NULL, related_name='best_answer', null=True)
     locked = models.BooleanField(default=False)
     complexity = models.CharField(max_length=255, choices=constants.COMPLEXITIES)

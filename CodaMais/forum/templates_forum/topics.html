@@ -28,14 +28,14 @@
                             <tr data-href="{% url 'show_topic' topic.id %}">
                               <td><a class="text-primary" href="{% url 'show_topic' topic.id %}">{{topic.title}}</a></td>
                               <td>{{topic.planned_date}}</td>
-                              {%if topic.delivery_date %}
+                              {%if topic.locked%}
                                 <td>{{topic.delivery_date}}</td>
                               {%else%}
                               <td>--</td>
                               {%endif%}
                               <td>{{topic.get_complexity_display}}</td>
                               <td>
-                                 {% if topic.completed %}
+                                 {% if topic.locked%}
                                    <i class="fa fa-check fa-2x text-success"></i>
                                  {%else%}
                                    Em andamento
@@ -90,14 +90,14 @@
                             <tr data-href="{% url 'show_topic' topic.id %}">
                               <td><a class="text-primary" href="{% url 'show_topic' topic.id %}">{{topic.title}}</a></td>
                               <td>{{topic.planned_date}}</td>
-                              {%if topic.delivery_date %}
+                              {%if topic.locked %}
                                 <td>{{topic.delivery_date}}</td>
                               {%else%}
                               <td>--</td>
                               {%endif%}
                               <td>{{topic.get_complexity_display}}</td>
                               <td>
-                                 {% if topic.completed %}
+                                 {% if topic.locked%}
                                    <i class="fa fa-check fa-2x text-success"></i>
                                  {%else%}
                                    Em andamento

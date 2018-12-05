@@ -325,6 +325,7 @@ def lock_topic(request, id):
 
     if user.username == topic.author.username or user.is_staff is True:
         logger.debug("Locking topic.")
+        topic.delivery_date = datetime.now()
         topic.locked = True
         topic.save()
 
