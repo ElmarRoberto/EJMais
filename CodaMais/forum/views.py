@@ -178,6 +178,21 @@ def create_topic(request):
 
 
 @login_required(login_url='/')
+def edit_topic(request, pk=None):
+    topic = Topic.objects.filter(pk=pk)
+    form = TopicForm(topic.values()[0])
+
+    if request.method == 'POST':
+        form = TopicForm(request.POST)
+
+        if form.is_valid():
+            topic.update(**form.cleaned_data)
+
+    return render(request, 'edit_topic.html', {'form': form})
+
+
+
+@login_required(login_url='/')
 def delete_topic(request, id):
     try:
         topic = Topic.objects.get(id=id)  # Topic object, from Topic model.

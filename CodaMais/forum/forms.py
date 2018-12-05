@@ -13,16 +13,17 @@ from django.utils.translation import ugettext_lazy as _
 # Class: TopicForm
 # The class represents all the fields of the topic in the site forum.
 class TopicForm(forms.ModelForm):
-    title = forms.CharField(widget=forms.TextInput(
-                                attrs={'class': 'form-control'}))
-
+    title = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
     description = forms.CharField(widget=forms.Textarea)
     
-    planned_date = forms.DateTimeField(input_formats=['%Y-%m-%dT%H:%M'])
-
     class Meta:
         model = Topic
         exclude = ['author', 'date_topic', 'best_answer']
+        widgets = {
+            'planned_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
 
     def clean(self, *args, **kwargs):
         title = self.cleaned_data.get("title")
